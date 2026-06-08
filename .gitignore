@@ -1,0 +1,6 @@
+database/
+scraper/
+Context/
+*.pyc
+__pycache__/
+.env
