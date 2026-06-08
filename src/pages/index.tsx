@@ -131,7 +131,7 @@ async function fetchActivities() {
 
   if (error || !data) return [];
 
-  return (data as OccurrenceRow[])
+  return (data as unknown as OccurrenceRow[])
     .filter((occ) => occ.activities && occ.activities.venues)
     .map((occ, i) => {
       const act = occ.activities!;
