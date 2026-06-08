@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//private/tmp/**)",
+      "Bash(python3 -c ' *)",
+      "Bash(pip3 install *)",
+      "Bash(mkdir -p /Users/bridieohlsson/BadNightsGoodDay/.claude)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(ls /Users/bridieohlsson/ && pwd)",
+      "Bash(find /Users/bridieohlsson/Claude/For-Bee-main -type f | sort)",
+      "Bash(.venv/bin/python run.py --scraper neac --dry-run)",
+      "Read(//Users/bridieohlsson/.claude/**)",
+      "Bash(mkdir -p ~/.claude/agents)",
+      "Bash(cp /Users/bridieohlsson/Claude/For-Bee-main/agents/*.md ~/.claude/agents/)",
+      "Bash(mkdir -p ~/.claude/skills)",
+      "Bash(cp -r /Users/bridieohlsson/Claude/For-Bee-main/skills/design-system ~/.claude/skills/)",
+      "Bash(mkdir -p ~/.claude/For-Bee)",
+      "Bash(cp -r /Users/bridieohlsson/Claude/For-Bee-main/scripts ~/.claude/For-Bee/)",
+      "Bash(cp /Users/bridieohlsson/Claude/For-Bee-main/.env.example ~/.claude/For-Bee/.env)",
+      "Bash(chmod 600 ~/.claude/For-Bee/.env)",
+      "Bash(cp /Users/bridieohlsson/Claude/For-Bee-main/settings.suggested.json ~/.claude/settings.json)",
+      "Bash(open /Users/bridieohlsson/Claude/For-Bee-main/setup-guides/github-push/setup-guide.html)",
+      "Bash(open /Users/bridieohlsson/Claude/For-Bee-main/setup-guides/gmail/setup-guide.html)",
+      "Bash(.venv/bin/python run.py --scraper city_of_sydney --dry-run)",
+      "Bash(.venv/bin/python -c ' *)",
+      "Bash(.venv/bin/pip install *)",
+      "Bash(.venv/bin/python run.py --scraper neac)",
+      "Bash(.venv/bin/python -)",
+      "Bash(2>&1)",
+      "WebFetch(domain:www.neac.com.au)",
+      "Bash(find ~ -name \"index.html\" 2>/dev/null | grep -i \"bad\\\\|night\\\\|good\\\\|day\" | head -10; find ~ -name \"*.html\" 2>/dev/null | head -20)",
+      "Bash(.venv/bin/python run.py --scraper city_of_sydney)",
+      "WebFetch(domain:whatson.cityofsydney.nsw.gov.au)",
+      "Bash(.venv/bin/python run.py --dry-run --scraper city_of_sydney)"
+    ]
+  }
+}
