@@ -285,13 +285,14 @@
       margin-top: var(--s-1);
     }
 
-    .swipe-outer { overflow: hidden; }
+    .swipe-outer { overflow: hidden; transition: height var(--motion-slow); }
     .swipe-track {
       display: flex;
+      align-items: flex-start;
       transition: transform var(--motion-slow);
       will-change: transform;
     }
-    .day-panel { min-width: 100%; }
+    .day-panel { min-width: 100%; width: 100%; }
 
     /* ── ACTIVITY CARDS ── */
     .activity-card {
@@ -486,11 +487,12 @@
       max-width: 300px;
       margin: 0 auto;
       overflow: hidden;
-      aspect-ratio: 100 / 84;   /* 84% of square SVG — reveals full star tip */
+      aspect-ratio: 100 / 62;
     }
 
     .footer-img-wrap img {
       width: 100%; height: auto; display: block;
+      margin-top: -22%;
       mix-blend-mode: multiply;
     }
 
@@ -882,6 +884,7 @@ function buildTrack() {
       : emptyState(dayIdx, age, area);
     track.appendChild(panel);
   });
+  syncTrackHeight();
 }
 
 function dateSublabel(d) {
@@ -893,6 +896,14 @@ function dateSublabel(d) {
   return `${Math.abs(diffDays)} days ago`;
 }
 
+function syncTrackHeight() {
+  const panels = document.querySelectorAll('.day-panel');
+  const outer  = document.getElementById('swipe-outer');
+  if (panels[currentIdx]) {
+    outer.style.height = panels[currentIdx].offsetHeight + 'px';
+  }
+}
+
 function updateDateDisplay() {
   const d = DAYS[currentIdx];
   document.getElementById('day-label').textContent =
@@ -902,6 +913,7 @@ function updateDateDisplay() {
   document.getElementById('prev-btn').disabled = currentIdx === 0;
   document.getElementById('next-btn').disabled = currentIdx === DAYS.length - 1;
   document.getElementById('swipe-track').style.transform = `translateX(-${currentIdx * 100}%)`;
+  syncTrackHeight();
 }
 
 function goTo(idx) {
