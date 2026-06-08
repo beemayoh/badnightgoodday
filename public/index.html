@@ -545,7 +545,9 @@
   <div class="selector-group">
     <label for="location-select">Location</label>
     <select id="location-select">
-      <option value="inner-west" selected>Inner West</option>
+      <option value="all" selected>All nearby</option>
+      <option value="inner-west">Inner West</option>
+      <option value="city-of-sydney">City of Sydney</option>
     </select>
   </div>
 </section>
@@ -843,7 +845,7 @@ function nextActiveDay(fromIdx, age, area) {
   // Scan forward for a day with matching activities
   for (let i = fromIdx + 1; i < DAYS.length; i++) {
     const hits = activities.filter(a =>
-      a.date === toDateStr(DAYS[i]) && a.area === area && a.ageRange.includes(age)
+      a.date === toDateStr(DAYS[i]) && (area === 'all' || a.area === area) && a.ageRange.includes(age)
     );
     if (hits.length) return DAYS[i];
   }
@@ -879,7 +881,7 @@ function buildTrack() {
     const panel = document.createElement('div');
     panel.className = 'day-panel';
     const acts = activities.filter(a =>
-      a.date === toDateStr(day) && a.area === area && a.ageRange.includes(age)
+      a.date === toDateStr(day) && (area === 'all' || a.area === area) && a.ageRange.includes(age)
     );
     panel.innerHTML = acts.length
       ? acts.map((a,i) => renderCard(a,i)).join('')
