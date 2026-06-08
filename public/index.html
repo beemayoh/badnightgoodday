@@ -757,6 +757,7 @@ function openShare(id) {
   const url  = act.url === '#' ? window.location.href : act.url;
   _shareUrl  = url;
 
+  gtag('event', 'share', { activity: act.name, venue: act.location });
   if (navigator.share) {
     navigator.share({ title: act.name, text, url })
       .catch(e => { if (e.name !== 'AbortError') showSheet(act, url); });
@@ -828,7 +829,7 @@ function renderCard(act, i) {
         <span class="badge badge-age">${act.ageLabel}</span>
       </div>
       <div class="card-footer">
-        <a href="${mapsUrl(act.location)}" class="maps-link" target="_blank" rel="noopener noreferrer">
+        <a href="${mapsUrl(act.location)}" class="maps-link" target="_blank" rel="noopener noreferrer" onclick="gtag('event','maps_click',{activity:'${act.name.replace(/'/g,"\\'")}',venue:'${act.location.replace(/'/g,"\\'")}'})"
           ${PIN}${act.location}
         </a>
         <button class="share-btn" onclick="openShare(${act.id})" aria-label="Share ${act.name}">${SHARE_ICO}</button>
@@ -928,8 +929,14 @@ updateDateDisplay();
 
 document.getElementById('prev-btn').addEventListener('click', () => goTo(currentIdx - 1));
 document.getElementById('next-btn').addEventListener('click', () => goTo(currentIdx + 1));
-document.getElementById('age-select').addEventListener('change', buildTrack);
-document.getElementById('location-select').addEventListener('change', buildTrack);
+document.getElementById('age-select').addEventListener('change', function() {
+  buildTrack();
+  gtag('event', 'filter_age', { age: this.value });
+});
+document.getElementById('location-select').addEventListener('change', function() {
+  buildTrack();
+  gtag('event', 'filter_location', { location: this.value });
+});
 
 // ── Date picker ────────────────────────────────────────────────────────────
 (function () {
