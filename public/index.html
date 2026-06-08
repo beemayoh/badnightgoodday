@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bad Night? Good Day | Children's Activities, Sydney Inner West</title>
+  <meta name="description" content="Find children's activities in Sydney's inner west today. Filter by your child's age and location to discover what's on — from baby music classes to outdoor play." />
+  <link rel="canonical" href="https://badnightsgoodday.com.au/" />
+  <!-- Nunito: body copy | Lilita One: display headings (Cooper BT web substitute) -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lilita+One&display=swap" rel="stylesheet" />
+
+  <!-- Structured data — Organisation + WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Bad Night? Good Day",
+    "url": "https://badnightsgoodday.com.au/",
+    "description": "Find children's activities in Sydney's inner west. Filter by age and location to see what's on today.",
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Sydney Inner West, NSW, Australia"
+    }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ════════════════════════════════════════════════
+       TOKEN SCALE — single source of truth
+       All rule bodies reference these; zero literals.
+    ════════════════════════════════════════════════ */
+    :root {
+      /* ── Brand primitives (only place hex literals live) ── */
+      --purple:      #5d1681;
+      --purple-mid:  #9b5dcc;
+      --purple-text: #4a0e6e;
+      --purple-a04:  rgba(93,22,129,.04);
+      --purple-a08:  rgba(93,22,129,.08);
+      --purple-a12:  rgba(93,22,129,.12);
+      --purple-a18:  rgba(93,22,129,.18);
+      --pink:        #ff4971;
+      --pink-text:   #aa0030;
+      --pink-a13:    rgba(255,73,113,.13);
+      --yellow:      #ffca45;
+      --yellow-d:    #c89500;
+      --yellow-text: #5a3800;
+
+      /* ── Semantic colours ── */
+      --bg:        #ffffff;
+      --bg-warm:   #fff8f5;
+      --text:      #1c1c1e;
+      --text-mid:  #6e6e73;
+      --c-maps:    #1a73e8;
+      --c-success: #1a8a3a;
+      --c-overlay: rgba(0,0,0,.45);
+      --c-line:    #ececec;
+      --lavender:  #f0e6f9;   /* selector fill — soft purple tint */
+      --shadow-sm: 0 2px 16px rgba(0,0,0,.07);
+      --shadow-md: 0 5px 22px rgba(0,0,0,.11);
+
+      /* ── Spacing — 7 steps, intent-named ── */
+      --s-1: 4px;    /* tight    — icon gap, hairline inset        */
+      --s-2: 8px;    /* snug     — control padding, small gaps     */
+      --s-3: 12px;   /* base     — element rhythm, card margin     */
+      --s-4: 16px;   /* roomy    — standard padding, group sep     */
+      --s-5: 20px;   /* loose    — block separation                */
+      --s-6: 24px;   /* section  — major section padding           */
+      --s-7: 40px;   /* page     — page-level air, footer pad      */
+
+      /* ── Type — 7 steps ── */
+      --fs-1: 11px;                     /* fine    — labels, eyebrow, badges    */
+      --fs-2: 12px;                     /* caption — small badge, footer-attr   */
+      --fs-3: 13px;                     /* body    — desc, meta, maps, sub      */
+      --fs-4: 14px;                     /* lead    — controls, time, quote      */
+      --fs-5: 15px;                     /* h3      — no-msg, close button       */
+      --fs-6: 18px;                     /* h2      — activity name, share title */
+      --fs-display: clamp(19px,5vw,26px); /* display — day label (fluid)        */
+
+      /* ── Display font stack ── */
+      --font-display: 'Lilita One', 'Cooper BT', CooperBT, 'Cooper Black', Rockwell, Georgia, serif;
+      --font-body:    'Nunito', sans-serif;
+
+      /* ── Motion ── */
+      --motion:       .15s ease;
+      --motion-sheet: .25s ease;
+      --motion-slow:  .35s cubic-bezier(.4,0,.2,1);
+
+      /* ── Measure (content max-widths — not spacing) ── */
+      --measure-logo:   360px;
+      --measure-narrow: 320px;
+      --measure-prose:  480px;
+
+      /* ── Component tokens ── */
+      --radius:          14px;  /* control / card border-radius  */
+      --radius-sm:        6px;  /* small element radius          */
+      --radius-pill:     20px;  /* pill shape — badges           */
+      --icon-lg:         44px;  /* large icon container          */
+      --nav-btn-size:    36px;  /* date-nav chevron font-size    */
+      --select-pad-end:  36px;  /* select right pad clears arrow */
+      --section-y:       36px;  /* footer bottom padding         */
+    }
+
+    /* ── Screen-reader-only utility ── */
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-warm);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+    }
+
+    .header-logo {
+      width: 100%;
+      max-width: var(--measure-logo);
+      height: auto;
+      display: block;
+      mix-blend-mode: multiply;   /* dissolves SVG white background into page cream */
+    }
+
+    /* ── SELECTORS ── */
+    .selectors {
+      width: 100%;
+      max-width: var(--measure-prose);
+      padding: var(--s-6) var(--s-5) var(--s-4);
+      display: flex;
+      gap: var(--s-3);
+    }
+
+    .selector-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-1);
+    }
+
+    .selector-group label {
+      font-size: var(--fs-1);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--purple-mid);
+      padding-left: var(--s-1);
+    }
+
+    .selector-group select {
+      appearance: none; -webkit-appearance: none;
+      background-color: var(--lavender);
+      border: 2px solid var(--purple-mid);
+      border-radius: var(--radius);
+      padding: var(--s-3) var(--select-pad-end) var(--s-3) var(--s-4);
+      font-family: var(--font-body);
+      font-size: var(--fs-4);
+      font-weight: 700;
+      color: var(--purple-text);
+      cursor: pointer;
+      width: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%234a0e6e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right var(--s-4) center;
+      background-size: var(--s-3);
+      transition: border-color var(--motion), box-shadow var(--motion);
+    }
+    .selector-group select:hover {
+      border-color: var(--purple-mid);
+    }
+    .selector-group select:focus,
+    .selector-group select:focus-visible {
+      outline: none;
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px var(--purple-a18);
+    }
+
+    /* ── ACTIVITIES ── */
+    .activities-section {
+      width: 100%;
+      max-width: var(--measure-prose);
+      padding: var(--s-3) var(--s-4) var(--s-7);
+      flex: 1;
+    }
+
+    .date-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--s-5);
+    }
+
+    .date-nav-btn {
+      background: none; border: none; cursor: pointer;
+      padding: var(--s-2) var(--s-1);
+      flex-shrink: 0;
+      color: var(--purple);
+      opacity: .35;
+      font-size: var(--nav-btn-size);
+      line-height: 1;
+      transition: opacity var(--motion), transform var(--motion);
+    }
+    .date-nav-btn:hover  { opacity: .75; transform: scale(1.1); }
+    .date-nav-btn:active { transform: scale(.9); opacity: .9; }
+    .date-nav-btn:disabled { opacity: .12; cursor: default; transform: none; }
+    .date-nav-btn:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: var(--s-1);
+      border-radius: var(--radius-sm);
+      opacity: .75;
+    }
+
+    .date-display { text-align: center; flex: 1; padding: 0 var(--s-2); }
+
+    /* Make the whole date area a button that opens the calendar */
+    .date-pick-btn {
+      display: inline-flex; flex-direction: column; align-items: center;
+      background: none; border: none; cursor: pointer; padding: 0;
+      font: inherit; color: inherit;
+    }
+    .date-pick-btn:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: var(--s-1);
+      border-radius: var(--radius-sm);
+    }
+
+    .day-label {
+      font-family: var(--font-display);
+      font-size: var(--fs-display);
+      font-weight: bold;
+      color: var(--text);
+      line-height: 1.15;
+    }
+    .date-pick-btn:hover .day-label { color: var(--purple); }
+
+    /* Tiny calendar hint icon below the date */
+    .date-cal-hint {
+      display: inline-flex; align-items: center; gap: var(--s-1);
+      font-size: var(--fs-2); font-weight: 600;
+      color: var(--purple-mid); opacity: .6;
+      margin-top: var(--s-1);
+      transition: opacity var(--motion);
+    }
+    .date-pick-btn:hover .date-cal-hint { opacity: 1; }
+
+    /* Hidden native date input — triggered by JS */
+    #date-picker {
+      position: absolute; opacity: 0; pointer-events: none;
+      width: 1px; height: 1px;
+    }
+
+    .today-badge {
+      display: inline-block;
+      background: var(--pink);
+      color: var(--bg);
+      font-size: var(--fs-1);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding: var(--s-1) var(--s-3);
+      border-radius: var(--radius-pill);
+      margin-top: var(--s-1);
+    }
+
+    .date-sub {
+      font-size: var(--fs-3);
+      font-weight: 600;
+      color: var(--text-mid);
+      margin-top: var(--s-1);
+    }
+
+    .swipe-outer { overflow: hidden; }
+    .swipe-track {
+      display: flex;
+      transition: transform var(--motion-slow);
+      will-change: transform;
+    }
+    .day-panel { min-width: 100%; }
+
+    /* ── ACTIVITY CARDS ── */
+    .activity-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: var(--s-4);
+      margin-bottom: var(--s-3);
+      border-left: 5px solid var(--purple);
+      transition: transform var(--motion), box-shadow var(--motion);
+    }
+    .activity-card:hover  { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .activity-card:active { transform: scale(.985); box-shadow: var(--shadow-sm); }
+    .activity-card.b-pink   { border-left-color: var(--pink); }
+    .activity-card.b-yellow { border-left-color: var(--yellow-d); }
+
+    .card-top {
+      display: flex; align-items: baseline;
+      justify-content: space-between;
+      gap: var(--s-2);
+      margin-bottom: var(--s-1);
+    }
+
+    .card-footer {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: var(--s-2);
+      margin-top: var(--s-1);
+    }
+
+    /* Tool 1 fix: subtle underline at rest signals this is a link */
+    .activity-name-link {
+      font-family: var(--font-display);
+      font-size: var(--fs-6);
+      font-weight: bold;
+      color: var(--text);
+      text-decoration: underline;
+      text-decoration-color: var(--purple-a18);
+      text-underline-offset: 2px;
+      flex: 1;
+      line-height: 1.2;
+    }
+    .activity-name-link:hover {
+      color: var(--purple);
+      text-decoration-color: var(--purple);
+    }
+    .activity-name-link:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: var(--s-1);
+      border-radius: 2px;
+    }
+
+    .activity-time {
+      font-family: var(--font-display);
+      font-size: var(--fs-4);
+      font-weight: bold;
+      color: var(--text-mid);
+      white-space: nowrap;
+    }
+
+    .share-btn {
+      background: none; border: none; cursor: pointer;
+      padding: var(--s-1);
+      border-radius: var(--radius-sm);
+      color: var(--text-mid);
+      display: flex; align-items: center; line-height: 1;
+      transition: color var(--motion), background var(--motion);
+    }
+    .share-btn:hover  { color: var(--purple); background: var(--purple-a08); }
+    .share-btn:active { transform: scale(.9); }
+    .share-btn:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: var(--s-1);
+    }
+
+    .activity-desc {
+      font-size: var(--fs-3);
+      font-weight: 600;
+      color: var(--text-mid);
+      margin-bottom: var(--s-2);
+      line-height: 1.45;
+    }
+
+    .activity-meta { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-bottom: var(--s-2); }
+
+    .badge {
+      font-size: var(--fs-2);
+      font-weight: 700;
+      padding: var(--s-1) var(--s-2);
+      border-radius: var(--radius-pill);
+    }
+    .badge-free { background: var(--yellow);     color: var(--yellow-text); }
+    .badge-paid { background: var(--pink-a13);   color: var(--pink-text); }
+    .badge-book { background: var(--purple-a12); color: var(--purple-text); }
+    .badge-age  { background: var(--purple-a08); color: var(--purple-text); }
+
+    .maps-link {
+      display: inline-flex; align-items: center; gap: var(--s-1);
+      font-size: var(--fs-3); font-weight: 700;
+      color: var(--c-maps); text-decoration: none;
+    }
+    .maps-link:hover { text-decoration: underline; }
+    .maps-link:focus-visible {
+      outline: 2px solid var(--c-maps);
+      outline-offset: var(--s-1);
+      border-radius: 2px;
+    }
+
+    /* ── EMPTY STATE ── */
+    .no-activities { text-align: center; padding: var(--s-7) var(--s-5); }
+    .no-icon { width: 72px; height: 72px; margin: 0 auto var(--s-4); }
+    .no-msg  { font-size: var(--fs-5); font-weight: 700; color: var(--text-mid); }
+    .no-sub  { font-size: var(--fs-3); font-weight: 600; margin-top: var(--s-1); color: var(--text-mid); opacity: .7; }
+
+    /* ── SHARE SHEET ── */
+    .share-overlay {
+      display: none; position: fixed; inset: 0;
+      background: var(--c-overlay); z-index: 1000;
+      align-items: flex-end; justify-content: center;
+    }
+    .share-overlay.open { display: flex; }
+
+    .share-sheet {
+      background: var(--bg);
+      border-radius: var(--s-6) var(--s-6) 0 0;
+      padding: var(--s-6) var(--s-6) var(--s-7);
+      width: 100%; max-width: var(--measure-prose);
+      animation: slideUp var(--motion-sheet);
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+    .share-title {
+      font-family: var(--font-display);
+      font-size: var(--fs-6); font-weight: bold; margin-bottom: var(--s-1);
+    }
+    .share-sub { font-size: var(--fs-3); color: var(--text-mid); margin-bottom: var(--s-5); }
+
+    .copy-toast {
+      font-size: var(--fs-2); font-weight: 700; color: var(--c-success);
+      text-align: center; margin-bottom: var(--s-2); display: none;
+    }
+
+    .share-options {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--s-2); margin-bottom: var(--s-3);
+    }
+
+    .share-opt {
+      display: flex; flex-direction: column; align-items: center; gap: var(--s-2);
+      padding: var(--s-3) var(--s-2);
+      border-radius: var(--s-3);
+      border: 2px solid var(--c-line);
+      cursor: pointer; background: none; text-decoration: none;
+      font-family: var(--font-body); font-size: var(--fs-2); font-weight: 700;
+      color: var(--text);
+      transition: border-color var(--motion), background var(--motion);
+    }
+    .share-opt:hover  { border-color: var(--purple); background: var(--purple-a04); }
+    .share-opt:active { transform: scale(.97); }
+    .share-opt:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: var(--s-1);
+    }
+
+    .share-opt-icon {
+      width: var(--icon-lg); height: var(--icon-lg); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .share-close {
+      width: 100%; padding: var(--s-4);
+      background: var(--purple-a08);
+      border: none; border-radius: var(--s-3);
+      font-family: var(--font-body); font-size: var(--fs-5); font-weight: 700;
+      color: var(--purple); cursor: pointer;
+      transition: background var(--motion);
+    }
+    .share-close:hover  { background: var(--purple-a12); }
+    .share-close:active { transform: scale(.98); }
+    .share-close:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: var(--s-1);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      width: 100%;
+      padding: 0 0 var(--section-y); text-align: center;
+    }
+
+    .footer-img-wrap {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      overflow: hidden;
+      aspect-ratio: 100 / 84;   /* 84% of square SVG — reveals full star tip */
+    }
+
+    .footer-img-wrap img {
+      width: 100%; height: auto; display: block;
+      mix-blend-mode: multiply;
+    }
+
+    .footer-quote {
+      font-size: var(--fs-4); font-weight: 700; color: var(--text);
+      max-width: var(--measure-narrow); margin: var(--s-1) auto 0;
+      line-height: 1.65; padding: 0 var(--s-5);
+    }
+    .footer-attr {
+      font-size: var(--fs-2); font-weight: 600; color: var(--text-mid);
+      font-style: italic; margin-top: var(--s-2);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════ HEADER ════ -->
+<header class="header">
+  <!-- LCP element — eager + high priority -->
+  <img src="logo.svg" alt="Bad Night? Good Day" class="header-logo"
+       fetchpriority="high" loading="eager" />
+  <!-- Visually-hidden H1: logo is not the heading; page content owns it -->
+  <h1 class="visually-hidden">Children's Activities in Sydney's Inner West</h1>
+</header>
+
+
+<!-- ════ SELECTORS ════ -->
+<section class="selectors" aria-label="Filter activities">
+  <div class="selector-group">
+    <label for="age-select">Child's age</label>
+    <select id="age-select">
+      <option value="0-3m">0–3 months</option>
+      <option value="4m" selected>4 months</option>
+      <option value="5m">5 months</option>
+      <option value="6m">6 months</option>
+      <option value="7m">7 months</option>
+      <option value="8m">8 months</option>
+      <option value="9m">9 months</option>
+      <option value="10m">10 months</option>
+      <option value="11m">11 months</option>
+      <option value="12m">12 months</option>
+      <option value="18m">18 months</option>
+      <option value="2y">2 years</option>
+      <option value="3y">3 years</option>
+      <option value="4y">4 years</option>
+      <option value="5y">5 years</option>
+      <option value="6y">6 years</option>
+      <option value="7-12y">7–12 years</option>
+    </select>
+  </div>
+  <div class="selector-group">
+    <label for="location-select">Location</label>
+    <select id="location-select">
+      <option value="inner-west" selected>Inner West</option>
+    </select>
+  </div>
+</section>
+
+
+<!-- ════ ACTIVITIES ════ -->
+<section class="activities-section" aria-label="Activities">
+  <div class="date-nav">
+    <button class="date-nav-btn" id="prev-btn" aria-label="Previous day">&#8249;</button>
+    <div class="date-display">
+      <button class="date-pick-btn" id="date-pick-btn" aria-label="Pick a date">
+        <h2 class="day-label" id="day-label"></h2>
+        <div id="today-badge" class="today-badge" style="display:none">Today</div>
+      </button>
+      <div class="date-sub" id="date-sub"></div>
+      <!-- Hidden native date input — positioned near button so showPicker() works -->
+      <input type="date" id="date-picker" aria-hidden="true" tabindex="-1" />
+    </div>
+    <button class="date-nav-btn" id="next-btn" aria-label="Next day">&#8250;</button>
+  </div>
+
+  <div class="swipe-outer" id="swipe-outer"
+       aria-live="polite" aria-atomic="false" aria-label="Activity listings">
+    <div class="swipe-track" id="swipe-track"></div>
+  </div>
+</section>
+
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer">
+  <div class="footer-img-wrap">
+    <img src="footer.svg" alt="" aria-hidden="true" />
+  </div>
+  <p class="footer-quote">"Becoming a parent means you'll never sleep again — but at least you now have someone to blame for the crayon on the walls."</p>
+  <p class="footer-attr">— Every parent, ever</p>
+</footer>
+
+
+<!-- ════ SHARE SHEET ════ -->
+<div class="share-overlay" id="share-overlay" role="dialog" aria-modal="true" aria-labelledby="share-title">
+  <div class="share-sheet" id="share-sheet">
+    <p class="share-title" id="share-title">Share activity</p>
+    <p class="share-sub"   id="share-sub"></p>
+    <p class="copy-toast"  id="copy-toast">Link copied to clipboard!</p>
+    <div class="share-options">
+      <a id="opt-wa" class="share-opt" target="_blank" rel="noopener noreferrer">
+        <div class="share-opt-icon" style="background:#25d366">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12 0C5.373 0 0 5.373 0 12c0 2.074.532 4.028 1.46 5.729L0 24l6.395-1.398A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+          </svg>
+        </div>
+        WhatsApp
+      </a>
+      <a id="opt-msg" class="share-opt" target="_blank" rel="noopener noreferrer">
+        <!-- Messenger gradient is the brand's own colour — intentional, not off-brand -->
+        <div class="share-opt-icon" style="background:linear-gradient(135deg,#0084ff,#a020f0)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.89 1.396 5.477 3.584 7.21V22l3.27-1.795c.875.242 1.802.371 2.76.371 5.523 0 10-4.145 10-9.243C22 6.145 17.523 2 12 2zm1.085 12.428l-2.548-2.72-4.97 2.72 5.467-5.808 2.612 2.72 4.906-2.72-5.467 5.808z"/>
+          </svg>
+        </div>
+        Messenger
+      </a>
+      <button class="share-opt" id="opt-copy" onclick="copyShareLink()">
+        <div class="share-opt-icon" style="background:var(--purple-a08)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--purple)" aria-hidden="true">
+            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+          </svg>
+        </div>
+        Copy link
+      </button>
+    </div>
+    <button class="share-close" onclick="closeShareSheet()">Close</button>
+  </div>
+</div>
+
+
+<script>
+// ── Activity data ──────────────────────────────────────────────────────────
+const activities = [
+  // ── 22 June 2026 (from PDF) ──
+  {
+    id:1, name:"Junior Jivers", url:"#",
+    desc:"Baby and toddler music and movement class with singing, clapping and dancing.",
+    time:"10:00 AM", cost:"FREE", booking:false,
+    ageRange:["0-3m","4m","5m","6m","7m","8m","9m","10m","11m","12m","18m","2y","3y","4y","5y"],
+    ageLabel:"0–5 years", location:"Erskineville Anglican Church, Erskineville",
+    area:"inner-west", date:"2026-06-22",
+  },
+  {
+    id:2, name:"GymKidz", url:"#",
+    desc:"Gentle gym exploration for babies — soft obstacles, crawling tunnels and padded climbing.",
+    time:"12:30 PM", cost:"FREE", booking:true,
+    ageRange:["0-3m","4m","5m","6m","7m","8m","9m","10m","11m","12m"],
+    ageLabel:"0–12 months", location:"Newtown Church, Newtown",
+    area:"inner-west", date:"2026-06-22",
+  },
+  {
+    id:3, name:"Sensory Play", url:"#",
+    desc:"Messy play and sensory exploration with supervised indoor water, sand and craft stations.",
+    time:"2:30 PM", cost:"PAID", booking:true,
+    ageRange:["0-3m","4m","5m","6m","7m","8m","9m","10m","11m","12m","18m","2y","3y"],
+    ageLabel:"0–3 years", location:"Newtown Library, Newtown",
+    area:"inner-west", date:"2026-06-22",
+  },
+  // ── Today: 7 June 2026 ──
+  {
+    id:4, name:"Baby Rhyme Time", url:"#",
+    desc:"Sing nursery rhymes, meet other parents and enjoy a gentle, fun start to the morning.",
+    time:"9:30 AM", cost:"FREE", booking:false,
+    ageRange:["0-3m","4m","5m","6m","7m","8m","9m","10m","11m","12m","18m"],
+    ageLabel:"0–18 months", location:"Marrickville Library, Marrickville",
+    area:"inner-west", date:"2026-06-07",
+  },
+  {
+    id:5, name:"Tiny Tumbles Gym", url:"#",
+    desc:"Structured gym class building coordination and motor skills with beams, bars and foam pits.",
+    time:"11:00 AM", cost:"PAID", booking:true,
+    ageRange:["18m","2y","3y","4y","5y"],
+    ageLabel:"18 months–5 years", location:"Balmain Recreation Centre, Balmain",
+    area:"inner-west", date:"2026-06-07",
+  },
+  {
+    id:6, name:"Splash & Play", url:"#",
+    desc:"Outdoor water play and picnic in the park. BYO towels, sunscreen and snacks.",
+    time:"2:00 PM", cost:"FREE", booking:false,
+    ageRange:["0-3m","4m","5m","6m","7m","8m","9m","10m","11m","12m","18m","2y","3y","4y","5y","6y"],
+    ageLabel:"0–6 years", location:"Petersham Park, Petersham",
+    area:"inner-west", date:"2026-06-07",
+  },
+  // ── 8 June 2026 ──
+  {
+    id:7, name:"Story Explorers", url:"#",
+    desc:"Interactive storytime with themed craft activity after the reading session.",
+    time:"10:30 AM", cost:"FREE", booking:false,
+    ageRange:["2y","3y","4y","5y","6y"],
+    ageLabel:"2–6 years", location:"Leichhardt Library, Leichhardt",
+    area:"inner-west", date:"2026-06-08",
+  },
+  {
+    id:8, name:"Music Makers", url:"#",
+    desc:"Explore drums, shakers and xylophones in a fun, interactive group music session.",
+    time:"1:00 PM", cost:"PAID", booking:true,
+    ageRange:["6m","7m","8m","9m","10m","11m","12m","18m","2y","3y"],
+    ageLabel:"6 months–3 years", location:"Newtown Neighbourhood Centre, Newtown",
+    area:"inner-west", date:"2026-06-08",
+  },
+];
+
+// ── Calendar ───────────────────────────────────────────────────────────────
+const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+
+function buildDays(center) {
+  const days = [];
+  for (let i = -3; i <= 10; i++) {
+    const d = new Date(center); d.setDate(d.getDate() + i); days.push(d);
+  }
+  return days;
+}
+
+let DAYS = buildDays(TODAY);
+let currentIdx = 3;  // TODAY is at index 3
+
+const DAY_NAMES   = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const MONTH_NAMES = ["January","February","March","April","May","June","July",
+                     "August","September","October","November","December"];
+
+function toDateStr(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function isToday(d) { return toDateStr(d) === toDateStr(TODAY); }
+function mapsUrl(loc) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc)}`;
+}
+
+// ── Share + focus trap ─────────────────────────────────────────────────────
+let _shareUrl     = '';
+let _lastFocused  = null;
+const FOCUSABLE   = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+function _trapFocus(e) {
+  const sheet = document.getElementById('share-sheet');
+  const nodes = Array.from(sheet.querySelectorAll(FOCUSABLE));
+  const first = nodes[0], last = nodes[nodes.length - 1];
+  if (e.key === 'Tab') {
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  }
+  if (e.key === 'Escape') closeShareSheet();
+}
+
+function openShare(id) {
+  const act = activities.find(a => a.id === id);
+  if (!act) return;
+  const text = `${act.name} — ${act.time}\n${act.desc}\n📍 ${act.location}`;
+  const url  = act.url === '#' ? window.location.href : act.url;
+  _shareUrl  = url;
+
+  if (navigator.share) {
+    navigator.share({ title: act.name, text, url })
+      .catch(e => { if (e.name !== 'AbortError') showSheet(act, url); });
+    return;
+  }
+  showSheet(act, url);
+}
+
+function showSheet(act, url) {
+  _lastFocused = document.activeElement;
+  document.getElementById('share-title').textContent = act.name;
+  document.getElementById('share-sub').textContent   = `${act.time} · ${act.location.split(',')[0]}`;
+  document.getElementById('copy-toast').style.display = 'none';
+  const enc = encodeURIComponent(`${act.name} — ${act.time}\n${act.desc}\n📍 ${act.location}\n${url}`);
+  document.getElementById('opt-wa').href  = `https://wa.me/?text=${enc}`;
+  document.getElementById('opt-msg').href =
+    `https://www.facebook.com/dialog/send?link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(window.location.href)}`;
+  document.getElementById('share-overlay').classList.add('open');
+  // Focus first interactive element; trap Tab + Escape inside the dialog
+  requestAnimationFrame(() => {
+    const first = document.getElementById('share-sheet').querySelector(FOCUSABLE);
+    if (first) first.focus();
+  });
+  document.addEventListener('keydown', _trapFocus);
+}
+
+function closeShareSheet() {
+  document.getElementById('share-overlay').classList.remove('open');
+  document.removeEventListener('keydown', _trapFocus);
+  if (_lastFocused) { _lastFocused.focus(); _lastFocused = null; }
+}
+
+function copyShareLink() {
+  navigator.clipboard.writeText(_shareUrl || window.location.href).then(() => {
+    const t = document.getElementById('copy-toast');
+    t.style.display = 'block';
+    setTimeout(() => { t.style.display = 'none'; }, 2200);
+  });
+}
+
+document.getElementById('share-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeShareSheet();
+});
+
+
+// ── Render cards ───────────────────────────────────────────────────────────
+const ACCENTS = ['', 'b-pink', 'b-yellow'];
+
+// fill="currentColor" inherits --c-maps from .maps-link { color: var(--c-maps) }
+const PIN = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`;
+
+const SHARE_ICO = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>`;
+
+function renderCard(act, i) {
+  const accent    = ACCENTS[i % 3];
+  const costCls   = act.cost === 'FREE' ? 'badge-free' : 'badge-paid';
+  const bookBadge = act.booking ? `<span class="badge badge-book">Must book</span>` : '';
+  const target    = act.url !== '#' ? ' target="_blank" rel="noopener"' : '';
+  return `
+    <article class="activity-card ${accent}" aria-label="${act.name}">
+      <div class="card-top">
+        <a href="${act.url}" class="activity-name-link"${target}>${act.name}</a>
+        <span class="activity-time">${act.time}</span>
+      </div>
+      <p class="activity-desc">${act.desc}</p>
+      <div class="activity-meta">
+        <span class="badge ${costCls}">${act.cost}</span>
+        ${bookBadge}
+        <span class="badge badge-age">${act.ageLabel}</span>
+      </div>
+      <div class="card-footer">
+        <a href="${mapsUrl(act.location)}" class="maps-link" target="_blank" rel="noopener noreferrer">
+          ${PIN}${act.location}
+        </a>
+        <button class="share-btn" onclick="openShare(${act.id})" aria-label="Share ${act.name}">${SHARE_ICO}</button>
+      </div>
+    </article>`;
+}
+
+const EMPTY = `
+  <div class="no-activities">
+    <svg class="no-icon" viewBox="0 0 72 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="36" cy="40" rx="30" ry="11" fill="#f5e6ff" stroke="#5d1681" stroke-width="2"/>
+      <ellipse cx="24" cy="34" rx="16" ry="11" fill="#f5e6ff" stroke="#5d1681" stroke-width="2"/>
+      <ellipse cx="46" cy="31" rx="18" ry="13" fill="#f5e6ff" stroke="#5d1681" stroke-width="2"/>
+      <text x="18" y="22" font-family="Nunito,sans-serif" font-weight="800" font-size="13" fill="#5d1681">z</text>
+      <text x="31" y="15" font-family="Nunito,sans-serif" font-weight="800" font-size="15" fill="#ff4971">z</text>
+      <text x="45" y="9"  font-family="Nunito,sans-serif" font-weight="800" font-size="17" fill="#5d1681">z</text>
+    </svg>
+    <p class="no-msg">Nothing on this day</p>
+    <p class="no-sub">Try a different age or check back soon!</p>
+  </div>`;
+
+function nextActiveDay(fromIdx, age, area) {
+  // Scan forward for a day with matching activities
+  for (let i = fromIdx + 1; i < DAYS.length; i++) {
+    const hits = activities.filter(a =>
+      a.date === toDateStr(DAYS[i]) && a.area === area && a.ageRange.includes(age)
+    );
+    if (hits.length) return DAYS[i];
+  }
+  return null;
+}
+
+function emptyState(dayIdx, age, area) {
+  const next = nextActiveDay(dayIdx, age, area);
+  const hint = next
+    ? `Next up: <strong>${DAY_NAMES[next.getDay()]} ${next.getDate()} ${MONTH_NAMES[next.getMonth()]}</strong>`
+    : 'Try adjusting the age filter or check back soon!';
+  return `
+  <div class="no-activities">
+    <svg class="no-icon" viewBox="0 0 72 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="36" cy="40" rx="30" ry="11" fill="#f5e6ff" stroke="#5d1681" stroke-width="2"/>
+      <ellipse cx="24" cy="34" rx="16" ry="11" fill="#f5e6ff" stroke="#5d1681" stroke-width="2"/>
+      <ellipse cx="46" cy="31" rx="18" ry="13" fill="#f5e6ff" stroke="#5d1681" stroke-width="2"/>
+      <text x="18" y="22" font-family="Nunito,sans-serif" font-weight="800" font-size="13" fill="#5d1681">z</text>
+      <text x="31" y="15" font-family="Nunito,sans-serif" font-weight="800" font-size="15" fill="#ff4971">z</text>
+      <text x="45" y="9"  font-family="Nunito,sans-serif" font-weight="800" font-size="17" fill="#5d1681">z</text>
+    </svg>
+    <p class="no-msg">Nothing on this day</p>
+    <p class="no-sub">${hint}</p>
+  </div>`;
+}
+
+function buildTrack() {
+  const track = document.getElementById('swipe-track');
+  const age   = document.getElementById('age-select').value;
+  const area  = document.getElementById('location-select').value;
+  track.innerHTML = '';
+  DAYS.forEach((day, dayIdx) => {
+    const panel = document.createElement('div');
+    panel.className = 'day-panel';
+    const acts = activities.filter(a =>
+      a.date === toDateStr(day) && a.area === area && a.ageRange.includes(age)
+    );
+    panel.innerHTML = acts.length
+      ? acts.map((a,i) => renderCard(a,i)).join('')
+      : emptyState(dayIdx, age, area);
+    track.appendChild(panel);
+  });
+}
+
+function dateSublabel(d) {
+  const diffDays = Math.round((d - TODAY) / 86400000);
+  if (diffDays === 0)  return '';
+  if (diffDays === 1)  return 'Tomorrow';
+  if (diffDays === -1) return 'Yesterday';
+  if (diffDays > 0)   return `${diffDays} days ahead`;
+  return `${Math.abs(diffDays)} days ago`;
+}
+
+function updateDateDisplay() {
+  const d = DAYS[currentIdx];
+  document.getElementById('day-label').textContent =
+    `${DAY_NAMES[d.getDay()]}, ${d.getDate()} ${MONTH_NAMES[d.getMonth()]}`;
+  document.getElementById('today-badge').style.display = isToday(d) ? 'inline-block' : 'none';
+  document.getElementById('date-sub').textContent = dateSublabel(d);
+  document.getElementById('prev-btn').disabled = currentIdx === 0;
+  document.getElementById('next-btn').disabled = currentIdx === DAYS.length - 1;
+  document.getElementById('swipe-track').style.transform = `translateX(-${currentIdx * 100}%)`;
+}
+
+function goTo(idx) {
+  currentIdx = Math.max(0, Math.min(DAYS.length - 1, idx));
+  updateDateDisplay();
+}
+
+buildTrack();
+updateDateDisplay();
+
+document.getElementById('prev-btn').addEventListener('click', () => goTo(currentIdx - 1));
+document.getElementById('next-btn').addEventListener('click', () => goTo(currentIdx + 1));
+document.getElementById('age-select').addEventListener('change', buildTrack);
+document.getElementById('location-select').addEventListener('change', buildTrack);
+
+// ── Date picker ────────────────────────────────────────────────────────────
+(function () {
+  const btn    = document.getElementById('date-pick-btn');
+  const picker = document.getElementById('date-picker');
+
+  btn.addEventListener('click', () => {
+    // Set the picker's current value to the displayed date
+    picker.value = toDateStr(DAYS[currentIdx]);
+    // showPicker() is the modern API; fall back to click() for older browsers
+    if (picker.showPicker) {
+      picker.showPicker();
+    } else {
+      picker.click();
+    }
+  });
+
+  picker.addEventListener('change', () => {
+    const val = picker.value;   // 'YYYY-MM-DD'
+    if (!val) return;
+
+    // Check if the date already exists in the current window
+    let idx = DAYS.findIndex(d => toDateStr(d) === val);
+    if (idx !== -1) {
+      goTo(idx);
+      return;
+    }
+
+    // Date is outside the current window — rebuild centered on the picked date
+    const center = new Date(val + 'T00:00:00');
+    DAYS = buildDays(center);
+    currentIdx = 3;   // center of the new window
+    buildTrack();
+    updateDateDisplay();
+  });
+})();
+
+// Touch swipe
+(function() {
+  const el = document.getElementById('swipe-outer');
+  let sx = null, sy = null;
+  el.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
+  el.addEventListener('touchend', e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx;
+    const dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) goTo(currentIdx + (dx < 0 ? 1 : -1));
+    sx = sy = null;
+  }, {passive:true});
+})();
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft')  goTo(currentIdx - 1);
+  if (e.key === 'ArrowRight') goTo(currentIdx + 1);
+});
+</script>
+</body>
+</html>

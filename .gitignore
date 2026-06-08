@@ -46,3 +46,10 @@ scraper/
 Context/
 *.pyc
 __pycache__/
+.env
+.env.local
+.env*.local
+.claude/
+node_modules/
+.next/
+.DS_Store
