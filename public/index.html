@@ -6,6 +6,7 @@
   <title>Bad Night? Good Day | Children's Activities, Sydney Inner West</title>
   <meta name="description" content="Find children's activities in Sydney's inner west today. Filter by your child's age and location to discover what's on — from baby music classes to outdoor play." />
   <link rel="canonical" href="https://badnightsgoodday.com.au/" />
+  <link rel="icon" href="/sun.png" type="image/png" />
   <!-- Nunito: body copy | Lilita One: display headings (Cooper BT web substitute) -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lilita+One&display=swap" rel="stylesheet" />
 
@@ -297,14 +298,13 @@
     .activity-card {
       background: var(--bg);
       border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
       padding: var(--s-4);
       margin-bottom: var(--s-3);
       border-left: 5px solid var(--purple);
       transition: transform var(--motion), box-shadow var(--motion);
     }
-    .activity-card:hover  { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .activity-card:active { transform: scale(.985); box-shadow: var(--shadow-sm); }
+    .activity-card:hover  { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .activity-card:active { transform: scale(.985); }
     .activity-card.b-pink   { border-left-color: var(--pink); }
     .activity-card.b-yellow { border-left-color: var(--yellow-d); }
 
@@ -853,10 +853,6 @@ function nextActiveDay(fromIdx, age, area) {
 }
 
 function emptyState(dayIdx, age, area) {
-  const next = nextActiveDay(dayIdx, age, area);
-  const hint = next
-    ? `Next up: <strong>${DAY_NAMES[next.getDay()]} ${next.getDate()} ${MONTH_NAMES[next.getMonth()]}</strong>`
-    : 'Try adjusting the age filter or check back soon!';
   return `
   <div class="no-activities">
     <svg class="no-icon" viewBox="0 0 72 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -868,7 +864,6 @@ function emptyState(dayIdx, age, area) {
       <text x="45" y="9"  font-family="Nunito,sans-serif" font-weight="800" font-size="17" fill="#5d1681">z</text>
     </svg>
     <p class="no-msg">Nothing on this day</p>
-    <p class="no-sub">${hint}</p>
   </div>`;
 }
 
