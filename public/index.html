@@ -856,14 +856,7 @@ function nextActiveDay(fromIdx, age, area) {
 function emptyState(dayIdx, age, area) {
   return `
   <div class="no-activities">
-    <svg class="no-icon" viewBox="0 0 72 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <ellipse cx="36" cy="40" rx="30" ry="11" fill="#f5e6ff" stroke="#5d1681" stroke-width="2"/>
-      <ellipse cx="24" cy="34" rx="16" ry="11" fill="#f5e6ff" stroke="#5d1681" stroke-width="2"/>
-      <ellipse cx="46" cy="31" rx="18" ry="13" fill="#f5e6ff" stroke="#5d1681" stroke-width="2"/>
-      <text x="18" y="22" font-family="Nunito,sans-serif" font-weight="800" font-size="13" fill="#5d1681">z</text>
-      <text x="31" y="15" font-family="Nunito,sans-serif" font-weight="800" font-size="15" fill="#ff4971">z</text>
-      <text x="45" y="9"  font-family="Nunito,sans-serif" font-weight="800" font-size="17" fill="#5d1681">z</text>
-    </svg>
+    <img src="/tea.svg" class="no-icon" alt="" aria-hidden="true" />
     <p class="no-msg">Nothing on this day</p>
     <p class="no-sub">"May your coffee be strong and your kid's nap long."</p>
   </div>`;
